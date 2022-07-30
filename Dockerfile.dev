@@ -1,0 +1,18 @@
+FROM node:16
+
+USER node
+RUN mkdir -p /home/node/app
+
+WORKDIR '/home/node/app'
+
+COPY --chown=node ./package.json ./
+RUN npm install
+
+COPY --chown=node:node ./ ./
+
+CMD ["npm","run", "start"]
+
+#use for development environment and run the command line below
+# docker build -f Dockerfile.dev .
+
+# docker run -it -p 3000:3000 -v /home/node/app/node_modules -v ~/my-project-directory:/home/node/app IMAGE_ID
